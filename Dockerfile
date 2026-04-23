@@ -5,18 +5,16 @@ ENV HERMES_HOME=/opt/data
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        build-essential git curl nodejs npm && \
+        build-essential git && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=ghcr.io/astral-sh/uv:latest /usr/local/bin/uv /usr/local/bin/uv
+WORKDIR /app
 
-WORKDIR /opt/hermes
-
-COPY pyproject.toml ./
-RUN uv pip install --system --no-cache -e "." 2>/dev/null || \
-    pip install --no-cache-dir -e "." 
-
+COPY pyproject.toml .
 COPY . .
+
+RUN pip install --no-cache-dir -e ".[core]" || \
+    pip install --no-cache-dir -e "."
 
 RUN mkdir -p /opt/data
 
