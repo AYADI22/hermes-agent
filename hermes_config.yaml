@@ -1,0 +1,9 @@
+telegram:
+  token: "8197218162:AAHZwZoIEu6mQ_mAH9naNBKJRN1-5M0dUms"
+  allowed_users:
+    - 6354888443
+
+llm:
+  provider: openrouter
+  model: google/gemini-2.0-flash-exp:free
+  api_key: "sk-or-v1-f82619cc2a0a4e57ffc8dba2923b799c4ef415a"
