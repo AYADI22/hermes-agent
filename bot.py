@@ -24,7 +24,7 @@ async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         "https://openrouter.ai/api/v1/chat/completions",
         headers={"Authorization": f"Bearer {OPENROUTER_KEY}"},
         json={
-            "model": "google/gemini-2.0-flash-exp:free",
+   "model": "meta-llama/llama-3.1-8b-instruct:free",
             "messages": [{"role": "user", "content": msg}]
         }
     )
