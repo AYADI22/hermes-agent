@@ -3,7 +3,7 @@ import requests
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
-TOKEN = os.environ["TELEGRAM_BOT_TOKEN"].strip()
+TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip().replace("=", "").replace(" ", "")
 OPENROUTER_KEY = os.environ["OPENROUTER_API_KEY"].strip()
 ALLOWED_USER = int(os.environ["TELEGRAM_ALLOWED_USERS"].strip().lstrip("="))
 
