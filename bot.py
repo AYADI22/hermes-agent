@@ -3,9 +3,9 @@ import requests
 from telegram import Update
 from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
-TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
-OPENROUTER_KEY = os.environ["OPENROUTER_API_KEY"]
-ALLOWED_USER = int(os.environ["TELEGRAM_ALLOWED_USERS"])
+TOKEN = os.environ["TELEGRAM_BOT_TOKEN"].strip()
+OPENROUTER_KEY = os.environ["OPENROUTER_API_KEY"].strip()
+ALLOWED_USER = int(os.environ["TELEGRAM_ALLOWED_USERS"].strip())
 
 async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ALLOWED_USER:
@@ -25,4 +25,3 @@ async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 app = Application.builder().token(TOKEN).build()
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle))
 app.run_polling()
-
