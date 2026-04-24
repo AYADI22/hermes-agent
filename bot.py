@@ -5,7 +5,7 @@ from telegram.ext import Application, MessageHandler, filters, ContextTypes
 
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"].strip()
 OPENROUTER_KEY = os.environ["OPENROUTER_API_KEY"].strip()
-ALLOWED_USER = int(os.environ["TELEGRAM_ALLOWED_USERS"].strip())
+ALLOWED_USER = int(os.environ["TELEGRAM_ALLOWED_USERS"].strip().lstrip("="))
 
 async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ALLOWED_USER:
