@@ -20,15 +20,21 @@ async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("غير مصرح لك.")
         return
     msg = update.message.text
-    r = requests.post(
-        "https://openrouter.ai/api/v1/chat/completions",
-        headers={"Authorization": f"Bearer {OPENROUTER_KEY}"},
-        json={
-   "model": "meta-llama/llama-3.1-8b-instruct:free",
-            "messages": [{"role": "user", "content": msg}]
-        }
-    )
-    reply = r.json()["choices"][0]["message"]["content"]
+    try:
+        r = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={"Authorization": f"Bearer {OPENROUTER_KEY}"},
+            json={
+                "model": "meta-llama/llama-3.1-8b-instruct:free",
+                "messages": [{"role": "user", "content": msg}]
+            },
+            timeout=30
+        )
+        data = r.json()
+        print(f"API Response: {data}")
+        reply = data["choices"][0]["message"]["content"]
+    except Exception as e:
+        reply = f"خطأ: {str(e)}"
     await update.message.reply_text(reply)
 
 app = Application.builder().token(TOKEN).build()
