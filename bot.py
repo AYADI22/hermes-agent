@@ -4,7 +4,7 @@ from telegram import Update
 from telegram.ext import Application, MessageHandler, CommandHandler, filters, ContextTypes
 
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip().replace("=", "").replace(" ", "")
-OPENROUTER_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
+OPENROUTER_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip().replace("=", "").replace(" ", "")
 ALLOWED_USER = int(os.environ.get("TELEGRAM_ALLOWED_USERS", "0").strip().lstrip("="))
 
 async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
