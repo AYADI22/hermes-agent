@@ -6,7 +6,6 @@ from telegram.ext import Application, MessageHandler, CommandHandler, filters, C
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip().replace("=", "").replace(" ", "")
 OPENROUTER_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
 ALLOWED_USER = int(os.environ.get("TELEGRAM_ALLOWED_USERS", "0").strip().lstrip("="))
-MODEL = os.environ.get("HERMES_LLM_MODEL", "meta-llama/llama-3.1-8b-instruct:free").strip()
 
 async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ALLOWED_USER:
@@ -25,7 +24,7 @@ async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
                 "Content-Type": "application/json"
             },
             json={
-                "model": MODEL,
+                "model": "meta-llama/llama-3.1-8b-instruct:free",
                 "messages": [{"role": "user", "content": msg}]
             },
             timeout=30
@@ -33,7 +32,7 @@ async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         data = r.json()
         reply = data["choices"][0]["message"]["content"]
     except Exception as e:
-        reply = f"خطأ: {str(e)}\nالرد: {r.text[:200] if 'r' in dir() else 'لا يوجد رد'}"
+        reply = f"خطأ: {str(e)}"
     await update.message.reply_text(reply)
 
 app = Application.builder().token(TOKEN).build()
