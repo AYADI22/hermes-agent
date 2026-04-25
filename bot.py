@@ -24,7 +24,7 @@ async def handle(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
                 "Content-Type": "application/json"
             },
             json={
-                "model": "mistralai/mistral-7b-instruct:free",
+                "model": "deepseek/deepseek-chat:free",
                 "messages": [{"role": "user", "content": msg}]
             },
             timeout=30
